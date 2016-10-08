@@ -16,9 +16,15 @@ class BATTLETANKS_API ATankPlayerController : public APlayerController
 	
 private:
 
-	ATank* GetControlledTank() const;
-	
 	virtual void BeginPlay() override;
+
+	// Called every frame
+	virtual void Tick(float DeltaSeconds) override;
+
+	//gets the coordinates to which the barrel and turret should aim at
+	void AimAtCrosshair();
+
+	ATank* GetControlledTank() const;
 
 	ATank* PlayerTank = nullptr;
 
