@@ -18,6 +18,9 @@ private:
 
 	virtual void BeginPlay() override;
 
+	// Called every frame
+	virtual void Tick(float DeltaSeconds) override;
+
 	ATank* GetAITank() const;
 
 	ATank* GetPlayerTank() const;
