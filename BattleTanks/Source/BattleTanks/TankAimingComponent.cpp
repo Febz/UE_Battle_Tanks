@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BattleTanks.h"
+#include "TankBarrel.h"
 #include "TankAimingComponent.h"
 
 
@@ -27,7 +28,7 @@ void UTankAimingComponent::AimAt(FVector AimLocation, float LaunchSpeed)
 		StartLocation,
 		AimLocation,
 		LaunchSpeed,
-		false, 0, 0, //these are default values, could be eliminated
+		false, 0, 0, //these are default values, write them everytime
 		ESuggestProjVelocityTraceOption::DoNotTrace);
 
 	if (AimAquired){
@@ -36,7 +37,7 @@ void UTankAimingComponent::AimAt(FVector AimLocation, float LaunchSpeed)
 	}
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
@@ -47,4 +48,5 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	auto AimRotation = AimDirection.Rotation();
 	auto DeltaRotation = AimRotation - BarrelRotation;
 	UE_LOG(LogTemp, Warning, TEXT("Barrel Rotation: %s || Aiming Rotation: %s"), *BarrelRotation.ToString(), *AimRotation.ToString());
+	Barrel->Elevate(DeltaRotation.Pitch);
 }
