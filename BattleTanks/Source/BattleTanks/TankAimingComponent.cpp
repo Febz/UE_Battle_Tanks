@@ -2,6 +2,7 @@
 
 #include "BattleTanks.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.h"
 
 
@@ -10,7 +11,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	bWantsBeginPlay = true;
+	bWantsBeginPlay = false;
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
@@ -39,7 +40,14 @@ void UTankAimingComponent::AimAt(FVector AimLocation, float LaunchSpeed)
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
+	if (!BarrelToSet) { return; }
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
+{
+	if (!TurretToSet) { return; }
+	Turret = TurretToSet;
 }
 
 void UTankAimingComponent::MoveBarrel(FVector AimDirection) 
@@ -49,4 +57,5 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	auto DeltaRotation = AimRotation - BarrelRotation;
 	UE_LOG(LogTemp, Warning, TEXT("Barrel Rotation: %s || Aiming Rotation: %s"), *BarrelRotation.ToString(), *AimRotation.ToString());
 	Barrel->Elevate(DeltaRotation.Pitch);
+	Turret->Rotate(DeltaRotation.Yaw);
 }
