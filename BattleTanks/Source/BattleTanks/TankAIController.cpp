@@ -27,10 +27,15 @@ void ATankAIController::BeginPlay()
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (GetPlayerTank()) 
-	{
-		AITank->AimAt(GetPlayerTank()->GetActorLocation());
-	}
+	if (PlayaTank)
+	{	
+		if (!AITank){ AITank = GetAITank(); }
+		else 
+		{
+			AITank->AimAt(PlayaTank->GetActorLocation());
+			AITank->Fire();
+		}
+	}else{ PlayaTank = GetPlayerTank(); }
 }
 
 ATank* ATankAIController::GetAITank() const
