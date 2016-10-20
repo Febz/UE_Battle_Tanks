@@ -35,13 +35,13 @@ private:
 	//returns an OUT param with aim location and true if linetrace hits the landscape
 	bool GetAimLocation(FVector LookDirection, FVector& AimLocation) const;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float CrosshairX = 0.5;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float CrosshairY = 0.33333;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float LineTraceRange = 1000000;
 
 	ATank* PlayerTank = nullptr;
