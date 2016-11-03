@@ -29,6 +29,9 @@ void ATankAIController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	if (PlayaTank)
 	{	
+
+		MoveToActor(PlayaTank, MinRadius);
+
 		if (!AITank){ AITank = GetAITank(); }
 		else 
 		{
@@ -37,6 +40,8 @@ void ATankAIController::Tick(float DeltaTime)
 		}
 	}else{ PlayaTank = GetPlayerTank(); }
 }
+
+
 
 ATank* ATankAIController::GetAITank() const
 {

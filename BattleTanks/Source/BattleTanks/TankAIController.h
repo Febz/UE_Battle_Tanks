@@ -24,6 +24,8 @@ private:
 	// Called every frame
 	virtual void Tick(float DeltaSeconds) override;
 
+	
+
 	ATank* GetAITank() const;
 
 	ATank* GetPlayerTank() const;
@@ -31,5 +33,7 @@ private:
 	ATank* AITank = nullptr;
 	ATank* PlayaTank = nullptr;
 	
+	UPROPERTY(EditDefaultsOnly, Category = AISettings)
+		float MinRadius = 4000.0f;
 	
 };
