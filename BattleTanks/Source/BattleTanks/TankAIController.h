@@ -33,7 +33,7 @@ private:
 	ATank* AITank = nullptr;
 	ATank* PlayaTank = nullptr;
 	
-	UPROPERTY(EditDefaultsOnly, Category = AISettings)
+	UPROPERTY(EditDefaultsOnly, Category = "AISettings")
 		float MinRadius = 4000.0f;
 	
 };

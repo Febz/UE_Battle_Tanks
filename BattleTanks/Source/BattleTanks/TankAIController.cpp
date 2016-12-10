@@ -11,9 +11,9 @@ void ATankAIController::BeginPlay()
 
 	AITank = GetAITank();
 	PlayaTank = GetPlayerTank();
-	if (!AITank)
+	if (!ensure(AITank))
 		UE_LOG(LogTemp, Error, TEXT("404 AI Tank not found"));
-	if (!PlayaTank)
+	if (!ensure(PlayaTank))
 	{
 		UE_LOG(LogTemp, Error, TEXT("AI Tank couldn't find Player Tank"));
 	}
@@ -27,12 +27,12 @@ void ATankAIController::BeginPlay()
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (PlayaTank)
+	if (ensure(PlayaTank))
 	{	
 
 		MoveToActor(PlayaTank, MinRadius);
 
-		if (!AITank){ AITank = GetAITank(); }
+		if (!ensure(AITank)){ AITank = GetAITank(); }
 		else 
 		{
 			AITank->AimAt(PlayaTank->GetActorLocation());
