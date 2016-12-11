@@ -10,8 +10,6 @@
  * 
  */
 
-class ATank;
-
 UCLASS()
 class BATTLETANKS_API ATankAIController : public AAIController
 {
@@ -26,12 +24,12 @@ private:
 
 	
 
-	ATank* GetAITank() const;
+	APawn* GetAITank() const;
 
-	ATank* GetPlayerTank() const;
+	APawn* GetPlayerTank() const;
 
-	ATank* AITank = nullptr;
-	ATank* PlayaTank = nullptr;
+	APawn* AITank = nullptr;
+	APawn* PlayaTank = nullptr;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "AISettings")
 		float MinRadius = 4000.0f;

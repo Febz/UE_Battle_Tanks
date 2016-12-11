@@ -10,7 +10,6 @@
  * 
  */
 
-class ATank;
 class UTankAimingComponent;
 
 UCLASS()
@@ -19,9 +18,6 @@ class BATTLETANKS_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 
 protected:
-
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-		ATank* GetControlledTank() const;
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimComponent(UTankAimingComponent* AimComponentRef);
@@ -51,6 +47,5 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 		float LineTraceRange = 1000000;
 
-	ATank* PlayerTank = nullptr;
 
 };
