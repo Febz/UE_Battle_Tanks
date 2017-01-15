@@ -22,12 +22,14 @@ void UTankAimingComponent::BeginPlay()
 {
 	//so that first fire is after initial reload
 	LastFireTime = FPlatformTime::Seconds();
+	return;
 }
 
 void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
 	Barrel = BarrelToSet;
 	Turret = TurretToSet;
+	return;
 }
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
@@ -44,6 +46,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 	{
 		FiringState = EFiringState::Locked;
 	}
+	return;
 }
 
 bool UTankAimingComponent::IsBarrelMoving() 
@@ -71,6 +74,7 @@ void UTankAimingComponent::AimAt(FVector AimLocation)
 		AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrel(AimDirection);
 	}
+	return;
 }
 
 
@@ -84,6 +88,7 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirect)
 	auto DeltaRotation = AimRotation - BarrelRotation;
 	Barrel->Elevate(DeltaRotation.Pitch);
 	Turret->Rotate(DeltaRotation.Yaw);
+	return;
 }
 
 void UTankAimingComponent::Fire()
@@ -98,6 +103,7 @@ void UTankAimingComponent::Fire()
 			Barrel->GetSocketRotation(FName("Projectile"))
 			);
 		Projectile->LaunchProjectile(LaunchSpeed);
+		LastFireTime = FPlatformTime::Seconds();
 	}
-	LastFireTime = FPlatformTime::Seconds();
+	return;
 }
