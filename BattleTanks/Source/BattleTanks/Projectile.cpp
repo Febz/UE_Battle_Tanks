@@ -18,19 +18,20 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	return;
 }
 
 // Called every frame
 void AProjectile::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-
+	return;
 }
 
 void AProjectile::LaunchProjectile(float Speed)
 {
 	ProjMovement->SetVelocityInLocalSpace(FVector::ForwardVector * Speed);
 	ProjMovement->Activate();
+	return;
 }
 

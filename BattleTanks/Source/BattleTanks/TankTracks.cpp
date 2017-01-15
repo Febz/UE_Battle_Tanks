@@ -15,7 +15,7 @@ void UTankTracks::BeginPlay()
 	if (!GetOwner()) { return; }
 	TankRootMesh = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
 	TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
-
+	return;
 }
 
 void UTankTracks::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
@@ -27,6 +27,7 @@ void UTankTracks::TickComponent(float DeltaTime, enum ELevelTick TickType, FActo
 	// Calculate and apply sideways force
 	auto CounterForce = (TankRootMesh->GetMass() * CounterAcceleration) / 2; //because there's 2 tracks
 	TankRootMesh->AddForce(CounterForce);
+	return;
 }
 
 void UTankTracks::SetThrottle(float Throttle) 
@@ -35,5 +36,6 @@ void UTankTracks::SetThrottle(float Throttle)
 	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxForce;
 	auto ForceLocation = GetComponentLocation();
 	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
+	return;
 }
 

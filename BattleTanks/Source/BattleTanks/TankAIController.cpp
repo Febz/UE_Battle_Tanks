@@ -21,7 +21,7 @@ void ATankAIController::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s: AI Tank deployed and ready for battle. Enemy player located: %s"), *AITank->GetName(), *PlayaTank->GetName());
 	}
-
+	return;
 }
 
 void ATankAIController::Tick(float DeltaTime)
@@ -39,7 +39,7 @@ void ATankAIController::Tick(float DeltaTime)
 	
 	AimComponent->Fire();
 	
-	
+	return;
 }
 
 

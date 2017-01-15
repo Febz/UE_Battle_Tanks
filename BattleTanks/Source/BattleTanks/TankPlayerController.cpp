@@ -11,12 +11,14 @@ void ATankPlayerController::BeginPlay()
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent)) { return; }
 	FoundAimComponent(AimingComponent);
+	return;
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	AimAtCrosshair();
+	return;
 }
 
 void ATankPlayerController::AimAtCrosshair()
@@ -29,7 +31,7 @@ void ATankPlayerController::AimAtCrosshair()
 	{
 		AimingComponent->AimAt(HitLocation);
 	}
-
+	return;
 }
 
 bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
