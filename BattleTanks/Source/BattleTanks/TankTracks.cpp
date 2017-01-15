@@ -7,7 +7,7 @@ UTankTracks::UTankTracks()
 {
 	bWantsBeginPlay = true;
 
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 }
 
 void UTankTracks::BeginPlay()
@@ -15,14 +15,24 @@ void UTankTracks::BeginPlay()
 	if (!GetOwner()) { return; }
 	TankRootMesh = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
 	TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+	OnComponentHit.AddDynamic(this, &UTankTracks::OnHit);
+
 	return;
 }
 
-void UTankTracks::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+void UTankTracks::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
+{
+	DriveTrack();
+	ApplySidewaysForce();
+	CurrentThrottle = 0;
+}
+
+void UTankTracks::ApplySidewaysForce()
 {
 	// Calculate sidewasys slip speed
 	auto SlippageSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
 	// Work-out required deceleration to correct 
+	auto DeltaTime = GetWorld()->GetDeltaSeconds();
 	auto CounterAcceleration = -(SlippageSpeed / DeltaTime) * GetRightVector();
 	// Calculate and apply sideways force
 	auto CounterForce = (TankRootMesh->GetMass() * CounterAcceleration) / 2; //because there's 2 tracks
@@ -32,8 +42,13 @@ void UTankTracks::TickComponent(float DeltaTime, enum ELevelTick TickType, FActo
 
 void UTankTracks::SetThrottle(float Throttle) 
 {
-	
-	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxForce;
+	CurrentThrottle = FMath::Clamp<float>(CurrentThrottle + Throttle, -1.0f, 1.0f);
+	return;
+}
+
+void UTankTracks::DriveTrack()
+{
+	auto ForceApplied = GetForwardVector() * CurrentThrottle * TrackMaxForce;
 	auto ForceLocation = GetComponentLocation();
 	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
 	return;
