@@ -14,6 +14,11 @@ UCLASS()
 class BATTLETANKS_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
+
+protected:
+
+	UPROPERTY(EditDefaultsOnly, Category = "AISettings")
+		float MinRadius = 7000.0f;
 	
 private:
 
@@ -22,16 +27,10 @@ private:
 	// Called every frame
 	virtual void Tick(float DeltaSeconds) override;
 
-	
-
 	APawn* GetAITank() const;
-
 	APawn* GetPlayerTank() const;
 
 	APawn* AITank = nullptr;
 	APawn* PlayaTank = nullptr;
-	
-	UPROPERTY(EditDefaultsOnly, Category = "AISettings")
-		float MinRadius = 4000.0f;
 	
 };

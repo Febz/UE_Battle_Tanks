@@ -36,9 +36,10 @@ void ATankAIController::Tick(float DeltaTime)
 	
 	AimComponent->AimAt(PlayaTank->GetActorLocation());
 
-	
-	AimComponent->Fire();
-	
+	if (AimComponent->GetFiringState() == EFiringState::Locked ) 
+	{
+		AimComponent->Fire();
+	}
 	return;
 }
 
