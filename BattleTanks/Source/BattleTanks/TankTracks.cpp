@@ -29,7 +29,7 @@ void UTankTracks::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 
 void UTankTracks::ApplySidewaysForce()
 {
-	// Calculate sidewasys slip speed
+	// Calculate sideways slip speed
 	auto SlippageSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
 	// Work-out required deceleration to correct 
 	auto DeltaTime = GetWorld()->GetDeltaSeconds();
