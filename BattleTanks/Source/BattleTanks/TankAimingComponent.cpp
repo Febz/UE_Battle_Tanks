@@ -87,7 +87,26 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirect)
 	auto AimRotation = AimDirect.Rotation();
 	auto DeltaRotation = AimRotation - BarrelRotation;
 	Barrel->Elevate(DeltaRotation.Pitch);
-	Turret->Rotate(DeltaRotation.Yaw);
+	auto DueYaw = DeltaRotation.Yaw;
+	if((DueYaw < 180.0f && DueYaw > 0.0f) || (DueYaw > -180.0f && DueYaw < 0.0f)) //Normal turret rotation
+	{
+		Turret->Rotate(DueYaw);
+		return;
+	}
+	else 
+	{
+		if (DueYaw > 0.0f) 
+		{
+			DueYaw = DueYaw - 360.0f;
+		}
+		else if (DueYaw < 0.0f)
+		{
+			DueYaw = 360.0f - DueYaw;
+		}
+		Turret->Rotate(DueYaw);
+		return;
+	}// should rotate to 180 if barrel rotation positive or to -180 otherwise
+	Turret->Rotate((-1 * (BarrelRotation.Yaw > 0.0f)) * DueYaw);
 	return;
 }
 

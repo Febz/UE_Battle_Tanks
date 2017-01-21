@@ -42,9 +42,9 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	auto ScreenLocation = FVector2D(PviewSizeX * CrosshairX, PviewSizeY * CrosshairY);
 	if(DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraLocation, LookDirection))
 	{
-		GetAimLocation(LookDirection, HitLocation);
+		return GetAimLocation(LookDirection, HitLocation);
 	}
-	return true;
+	return false;
 	
 }
 
